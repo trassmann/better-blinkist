@@ -1,0 +1,22 @@
+.root {
+  padding: 2rem;
+}
+
+.book {
+  display: flex;
+  flex-flow: column nowrap;
+
+  padding: 2rem 0;
+}
+
+.book > h2 {
+  text-decoration: underline;
+  margin: 0 0 1rem 0;
+}
+
+.book > .chapter {
+  display: flex;
+  flex-flow: column nowrap;
+
+  padding: 2rem;
+}

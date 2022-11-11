@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Better Blinkist",
+  "version": "0.1",
+  "description": "Better Blinkist",
+  "content_scripts": [
+    {
+      "matches": ["https://*.blinkist.com/*"],
+      "js": ["index.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
