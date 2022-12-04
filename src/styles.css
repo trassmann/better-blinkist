@@ -1,22 +1,26 @@
 .root {
+  display: flex;
+  flex-flow: column nowrap;
+
   padding: 2rem;
+}
+
+.header {
+  border-bottom: 1px solid black;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  max-width: 875px;
+  padding: 0.5rem 0;
+}
+.header-inner > h1 {
+  margin: 0 1rem auto 0;
 }
 
 .book {
-  display: flex;
-  flex-flow: column nowrap;
-
-  padding: 2rem 0;
-}
-
-.book > h2 {
-  text-decoration: underline;
-  margin: 0 0 1rem 0;
-}
-
-.book > .chapter {
-  display: flex;
-  flex-flow: column nowrap;
-
-  padding: 2rem;
+  padding: 1rem;
 }

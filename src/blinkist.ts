@@ -27,7 +27,7 @@ const getTextMarkers = async ({ page }: GetTextMarkersArgs) => {
         params: {
           page,
           locale: "de",
-          order: "book",
+          order: "date",
         },
       }
     );
@@ -79,28 +79,35 @@ const getAllTextMarkers = async ({
 export type Chapter = {
   title: string;
   quotes: string[];
+  orderNr: number;
 };
 export type Book = {
   title: string;
   chapters: Chapter[];
+  originalSortIdx: number;
 };
 
 export const getAllBooks = async (): Promise<Book[]> => {
   const allMarkers = await getAllTextMarkers();
   const groupedBooks = _.groupBy(allMarkers, "book_id");
 
-  return Object.entries(groupedBooks).map(([, bookMarkers]) => {
+  return Object.entries(groupedBooks).map(([, bookMarkers], idx) => {
     const groupedChapters = _.groupBy(bookMarkers, "chapter_id");
     const chapters = Object.entries(groupedChapters).map(
       ([, chapterMarkers]) => ({
         title: chapterMarkers?.[0]?.chapter_title ?? "Unknown chapter",
-        quotes: chapterMarkers.map((marker) => marker.text.trim()),
+        quotes: _.sortBy(
+          chapterMarkers.map((marker) => marker?.text?.trim() ?? ""),
+          "char_from"
+        ),
+        orderNr: chapterMarkers?.[0]?.order_no ?? 0,
       })
     );
 
     return {
       title: bookMarkers?.[0]?.book_title ?? "Unknown book",
-      chapters,
+      chapters: _.sortBy(chapters, "orderNr"),
+      originalSortIdx: idx,
     };
   });
 };
